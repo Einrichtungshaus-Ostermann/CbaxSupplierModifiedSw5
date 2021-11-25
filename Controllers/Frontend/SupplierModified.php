@@ -19,7 +19,16 @@ class Shopware_Controllers_Frontend_SupplierModified extends Enlight_Controller_
 
 	public function init()
 	{
-		$this->config = Shopware()->Container()->get('shopware.plugin.cached_config_reader')->getByPluginName('CbaxSupplierModifiedSw5', Shopware()->Shop());
+		$shop = false;
+		if (Shopware()->Container()->initialized('shop')) {
+			$shop = Shopware()->Container()->get('shop');
+		}
+	
+		if (!$shop) {
+			$shop = Shopware()->Container()->get('models')->getRepository(\Shopware\Models\Shop\Shop::class)->getActiveDefault();
+		}
+	
+		$this->config = Shopware()->Container()->get('shopware.plugin.cached_config_reader')->getByPluginName('CbaxSupplierModifiedSw5', $shop);
 		
 		$this->helperComponent = Shopware()->Container()->get('cbax_supplier_modified_sw5.supplier_modified_helper');
 	}
@@ -31,35 +40,43 @@ class Shopware_Controllers_Frontend_SupplierModified extends Enlight_Controller_
 			$this->redirect(array('controller' => 'index'));
 			return;
 		}
-
+		
+		$namespace = Shopware()->Snippets()->getNamespace('frontend/plugins/supplier_modified/index');
+		$supplierStandardTitle = $namespace->get('SupplierMetaTitleStandard');
+		
+		$supplierStandardUrl = $this->helperComponent->getRewriteUrl($sCategoryStart);
+		
+		$breadcrumb = $this->View()->sBreadcrumb;
+		$breadcrumb[] = array(
+			'link' => $supplierStandardUrl,
+			'name' => $supplierStandardTitle
+		);
+		$this->View()->sBreadcrumb = $breadcrumb;
+		
 		$this->View()->loadTemplate("frontend/plugins/supplier_modified/index.tpl");
 
 		$shop = Shopware()->Shop();
 		$sCategoryStart = $shop->getCategory()->getId();
 
-		switch ($config->displayMode) {
-			case 'showName': $brandItemCls = ' label-only';
-				break;
-			case 'showLogo': $brandItemCls = ' logo-only';
-				break;
-			default: $brandItemCls = '';
-		}
-
-		$supplierModified['byChar'] = $this->helperComponent->getSupplierByChar($sCategoryStart, 0);
-		$supplierModified['banner'] = $this->config['supplier_banner'];
-		$supplierModified['bannerPosition'] = $this->config['bannerPositionInListing'];
-		$supplierModified['topsellerShow'] = $this->config['showTopsellerInOverview'];
-		$supplierModified['headline'] = $this->config['headline'];
-		$supplierModified['text'] = $this->config['text'];
-		$supplierModified['textPosition'] = $this->config['textPosition'];
-		$supplierModified['displayMode'] = $this->config['displayMode'];
-		$supplierModified['brandItemCls'] = $brandItemCls;
-		$supplierModified['displayFilter'] = $this->config['displayFilter'];
-		$supplierModified['duration'] = $this->config['duration'];
-		$supplierModified['stop'] = $this->config['stop'];
-		$supplierModified['hideSidebar'] = $this->config['hideSidebar'];
-		$supplierModified['hideNavigationTitle'] = $this->config['hide_navigation_title'];
-		$supplierModified['showArticleCount'] = $this->config['show_article_count'];
+		$supplierModified['byChar'] 					= $this->helperComponent->getSupplierByChar($sCategoryStart, 0);
+		$supplierModified['banner'] 					= $this->config['supplierBanner'];
+		$supplierModified['bannerPosition'] 			= $this->config['bannerPositionInOverview'];
+		$supplierModified['topsellerShow'] 				= $this->config['showTopsellerInOverview'];
+		$supplierModified['headline'] 					= $this->config['headline'];
+		$supplierModified['text'] 						= $this->config['text'];
+		$supplierModified['textPosition'] 				= $this->config['textPositionInOverview'];
+		$supplierModified['displayMode'] 				= $this->config['displayMode'];
+		$supplierModified['displayFilter'] 				= $this->config['displayFilter'];
+		$supplierModified['duration'] 					= $this->config['duration'];
+		$supplierModified['stop'] 						= $this->config['stop'];
+		$supplierModified['hideSidebarDesktop'] 		= $this->config['hideSidebarDesktop'];
+		$supplierModified['hideSidebarSmartphone'] 		= $this->config['hideSidebarSmartphone'];
+		$supplierModified['hideNavigationTitle'] 		= $this->config['hideNavigationTitle'];
+		$supplierModified['showActiveFilter'] 			= $this->config['showActiveFilter'];
+		$supplierModified['showArticleCountOverview'] 	= $this->config['showArticleCountInOverview'];
+		$supplierModified['showArticleCountSidebar'] 	= $this->config['showArticleCountInSidebar'];
+		$supplierModified['template'] 					= $this->config['template'];
+		$supplierModified['navigation'] 				= $this->config['navigation'];
 
 		$this->View()->CbaxSupplierModified = $supplierModified;
 	}

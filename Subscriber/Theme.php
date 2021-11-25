@@ -13,16 +13,16 @@ class Theme implements SubscriberInterface
      * @var
      */
     private $pluginPath;
-	
-	/**
+
+    /**
+     * @var
+     */
+    private $configReader;
+
+    /**
      * @var
      */
     private $pluginName;
-	
-	/**
-     * @var
-     */
-	private $configReader;
 
     /**
      * Theme constructor
@@ -30,8 +30,8 @@ class Theme implements SubscriberInterface
     public function __construct($pluginPath, $pluginName, ConfigReader $configReader)
     {
 		$this->pluginPath = $pluginPath;
-		$this->pluginName = $pluginName;
-		$this->configReader = $configReader;
+        $this->pluginName = $pluginName;
+        $this->configReader = $configReader;
     }
 
     /**
@@ -68,31 +68,22 @@ class Theme implements SubscriberInterface
      */
     public function onAddLessFiles(\Enlight_Event_EventArgs $args)
     {
-		$shop = $args->get('shop');
-		$config = $this->configReader->getByPluginName($this->pluginName, $shop);
+		//hier liefert constructer nur Standard Shop!
+        //shop aus $args liefert richtigen (sub)shop
+        $shop = $args->get('shop');
+        $config_local = $this->configReader->getByPluginName($this->pluginName, $shop);
+
+        if (!$config_local['active']) {
+            return;
+        }
 		
-		if (!$config['active']) {
-			return;
-		}
-		
-		$display = ($config['categories_hide']) ? 'none' : 'block';
+		$display = ($config_local['hideCategories']) ? 'none' : 'block';
 		
         $less = new LessDefinition(
             array(
 				'cbax-supplier-modified-display' => $display,
-				'cbax-supplier-modified-brand-label-height' => $config['brandLabelHeight'],
-				'cbax-supplier-modified-brand-label-width' => $config['brandLabelWidth']
+				'cbax-supplier-modified-supplier-box-height' => $config_local['supplierBoxHeight']
 			),
-            [
-                $this->pluginPath . '/Resources/views/frontend/_public/src/less/all.less'
-            ],
-            $this->pluginPath
-        );
-
-        return new ArrayCollection([$less]);
-		
-		$less = new LessDefinition(
-            [],
             [
                 $this->pluginPath . '/Resources/views/frontend/_public/src/less/all.less'
             ],
@@ -109,12 +100,14 @@ class Theme implements SubscriberInterface
      */
     public function onAddJavascriptFiles(\Enlight_Event_EventArgs $args)
     {
-		$shop = $args->get('shop');
-		$config = $this->configReader->getByPluginName($this->pluginName, $shop);
-		
-		if (!$config['active']) {
-			return;
-		}
+		//hier liefert constructer nur Standard Shop!
+        //shop aus $args liefert richtigen (sub)shop
+        $shop = $args->get('shop');
+        $config_local = $this->configReader->getByPluginName($this->pluginName, $shop);
+
+        if (!$config_local['active']) {
+            return;
+        }
 		
         $jsFiles = [
             $this->pluginPath . '/Resources/views/frontend/_public/src/js/supplier_modified.js'

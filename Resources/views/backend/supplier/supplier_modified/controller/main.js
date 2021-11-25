@@ -1,4 +1,4 @@
-// {block name="backend/supplier/controller/main"}
+//{block name="backend/supplier/controller/main"}
 //{$smarty.block.parent}
 Ext.define('Shopware.apps.Supplier.controller.Main-SupplierModified', {
 	override: 'Shopware.apps.Supplier.controller.Main',
@@ -51,6 +51,7 @@ Ext.define('Shopware.apps.Supplier.controller.Main-SupplierModified', {
 			cbaxSupplierIsPremiumField = editWindow.down('checkbox[name=cbaxSupplierIsPremium]'),
 			cbaxSupplierBannerField = editWindow.down('mediaselectionfield[name=cbaxSupplierBanner]'),
 			cbaxSupplierIsHiddenField = editWindow.down('checkbox[name=cbaxSupplierIsHidden]');
+			cbaxSupplierUrlField = editWindow.down('textfield[name=cbaxSupplierUrl]');
 
 		if (record.getId()) {
 			Ext.Ajax.request({
@@ -64,6 +65,7 @@ Ext.define('Shopware.apps.Supplier.controller.Main-SupplierModified', {
 						isPremium = response.data['__attribute_cbax_supplier_is_premium'],
 						banner = response.data['__attribute_cbax_supplier_banner'],
 						isHidden = response.data['__attribute_cbax_supplier_is_hidden'];
+						url = response.data['__attribute_cbax_supplier_url'];
 
 					if (isPremium !== null && isPremium !== undefined) {
 						cbaxSupplierIsPremiumField.setValue(isPremium);
@@ -73,6 +75,9 @@ Ext.define('Shopware.apps.Supplier.controller.Main-SupplierModified', {
 					}
 					if (isHidden !== null && isHidden !== undefined) {
 						cbaxSupplierIsHiddenField.setValue(isHidden);
+					}
+					if (url !== null && url !== undefined) {
+						cbaxSupplierUrlField.setValue(url);
 					}
 				}
 			});
@@ -94,6 +99,7 @@ Ext.define('Shopware.apps.Supplier.controller.Main-SupplierModified', {
 			cbaxSupplierIsPremiumField = form.down('checkbox[name=cbaxSupplierIsPremium]'),
 			cbaxSupplierBannerField = form.down('mediaselectionfield[name=cbaxSupplierBanner]'),
 			cbaxSupplierIsHiddenField = form.down('checkbox[name=cbaxSupplierIsHidden]'),
+			cbaxSupplierUrlField = form.down('textfield[name=cbaxSupplierUrl]'),
 			record = form.getRecord();
 
 		if (!(record instanceof Ext.data.Model)) {
@@ -112,7 +118,8 @@ Ext.define('Shopware.apps.Supplier.controller.Main-SupplierModified', {
 					_table: 's_articles_supplier_attributes',
 					__attribute_cbax_supplier_is_premium: (cbaxSupplierIsPremiumField.getValue()) ? 1 : 0,
 					__attribute_cbax_supplier_banner: cbaxSupplierBannerField.getValue(),
-					__attribute_cbax_supplier_is_hidden: (cbaxSupplierIsHiddenField.getValue()) ? 1 : 0
+					__attribute_cbax_supplier_is_hidden: (cbaxSupplierIsHiddenField.getValue()) ? 1 : 0,
+					__attribute_cbax_supplier_url: cbaxSupplierUrlField.getValue()
 				}
 			});
 		}
@@ -124,7 +131,8 @@ Ext.define('Shopware.apps.Supplier.controller.Main-SupplierModified', {
 		var formBasis = form.getForm(),
 			cbaxSupplierIsPremiumField = form.down('checkbox[name=cbaxSupplierIsPremium]'),
 			cbaxSupplierBannerField = form.down('mediaselectionfield[name=cbaxSupplierBanner]'),
-			cbaxSupplierIsHiddenField = form.down('checkbox[name=cbaxSupplierIsHidden]');
+			cbaxSupplierIsHiddenField = form.down('checkbox[name=cbaxSupplierIsHidden]'),
+			cbaxSupplierUrlField = form.down('textfield[name=cbaxSupplierUrl]');
 
 		if (!(record instanceof Ext.data.Model)) {
 			return;
@@ -139,7 +147,8 @@ Ext.define('Shopware.apps.Supplier.controller.Main-SupplierModified', {
 					_table: 's_articles_supplier_attributes',
 					__attribute_cbax_supplier_is_premium: (cbaxSupplierIsPremiumField.getValue()) ? 1 : 0,
 					__attribute_cbax_supplier_banner: cbaxSupplierBannerField.getValue(),
-					__attribute_cbax_supplier_is_hidden: (cbaxSupplierIsHiddenField.getValue()) ? 1 : 0
+					__attribute_cbax_supplier_is_hidden: (cbaxSupplierIsHiddenField.getValue()) ? 1 : 0,
+					__attribute_cbax_supplier_url: cbaxSupplierUrlField.getValue()
 				}
 			});
 		}

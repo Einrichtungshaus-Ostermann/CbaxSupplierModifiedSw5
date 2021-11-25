@@ -13,7 +13,36 @@ class SupplierModifiedHelper
 
     public function __construct($pluginName, ConfigReader $configReader)
     {
-		$this->config = $configReader->getByPluginName($pluginName, Shopware()->Shop());
+		$shop = false;
+		if (Shopware()->Container()->initialized('shop')) {
+			$shop = Shopware()->Container()->get('shop');
+		}
+	
+		if (!$shop) {
+			$shop = Shopware()->Container()->get('models')->getRepository(\Shopware\Models\Shop\Shop::class)->getActiveDefault();
+		}
+	
+		$this->config = $configReader->getByPluginName($pluginName, $shop);
+    }
+
+    public function getSupplierByChar($categorieId, $supplierId)
+    {
+        if ($this->config['caching'] === true) {
+            $cachedSupplier = $this->getCache($categorieId.'_'.$supplierId);
+
+            if ($cachedSupplier) {
+                return $cachedSupplier;
+            } else {
+                $result = $this->getSupplierByCharData($categorieId, $supplierId);
+
+                // Daten cachen
+                $this->saveCache($categorieId.'_'.$supplierId, $result);
+
+                return $result;
+            }
+        } else {
+            return $this->getSupplierByCharData($categorieId, $supplierId);
+        }
     }
 
     /**
@@ -22,7 +51,7 @@ class SupplierModifiedHelper
 	 * @return mixed
 	 * @throws Exception
 	 */
-	public function getSupplierByChar($categorieId, $supplierId)
+	public function getSupplierByCharData($categorieId, $supplierId)
 	{
 		$letters = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
 		
@@ -38,6 +67,8 @@ class SupplierModifiedHelper
 			}
 		}
 		
+		$attributes = $this->getSupplierAttributes();
+		
 		// Zuerst alle Hersteller, welche mit KEINEM Buchstaben beginnen
 		$filterSql = "(name NOT LIKE '";
 		$filterSql .= implode("%' AND name NOT LIKE '", $letters);
@@ -46,6 +77,7 @@ class SupplierModifiedHelper
 		$sql = "
 		SELECT
 			s.*,
+			$attributes,
 			(
 			SELECT COUNT(DISTINCT a.id)
 			FROM s_articles AS a 
@@ -92,7 +124,7 @@ class SupplierModifiedHelper
 				'action' => 'manufacturer',
 				'sSupplier' => $supplierValue["id"]
 			);
-			$suppliers[$supplierKey]["link"] = Shopware()->Router()->assemble($query);
+			$suppliers[$supplierKey]["link"] = Shopware()->Front()->Router()->assemble($query);
 
 			if ($this->assertMinimumVersion('5.0.9')) {
 				if ($supplierValue["img"]) {
@@ -110,8 +142,6 @@ class SupplierModifiedHelper
 		$result[0]['items'] = $suppliers;
 
 		// Jetzt alle Hersteller welche mit einem Buchstaben beginnen
-		$attributes = $this->getSupplierAttributes();
-
 		$counter = 0;
 		foreach ($letters as $letter) {
 			$counter++;
@@ -166,7 +196,7 @@ class SupplierModifiedHelper
 					'action' => 'manufacturer',
 					'sSupplier' => $supplierValue["id"]
 				);
-				$suppliers[$supplierKey]["link"] = Shopware()->Router()->assemble($query);
+				$suppliers[$supplierKey]["link"] = Shopware()->Front()->Router()->assemble($query);
 
 				if ($this->assertMinimumVersion('5.0.9')) {
 					if ($supplierValue["img"]) {
@@ -229,6 +259,53 @@ class SupplierModifiedHelper
 			return Shopware()->Config()->BaseFile . '?' . $orgPath;
 		}
 	}
+
+    /**
+     * Returns the complete cached text
+     *
+     * @param $textID
+     * @return false|mixed|string
+     */
+    public function getCache($textID)
+    {
+        $text = '';
+
+        if (!empty($this->config['caching'])) {
+
+            $context = Shopware()->Container()->get('shopware_storefront.context_service')->getShopContext();
+
+            $id = 'Cbax_SupplierModified_' . $context->getShop()->getId() . '_' . $textID . '_' . $context->getCurrentCustomerGroup()->getId();
+            /** @var Zend_Cache_Core $cache */
+            $cache = Shopware()->Container()->get('cache');
+
+            if ($cache->test($id)) {
+                $text = $cache->load($id);
+            }
+        }
+
+        return $text;
+    }
+
+    /**
+     * Cached the complete text
+     *
+     * @param $textID
+     * @param $text
+     * @throws Zend_Cache_Exception
+     */
+    public function saveCache($textID, $text)
+    {
+        if (!empty($this->config['caching'])) {
+
+            $context = Shopware()->Container()->get('shopware_storefront.context_service')->getShopContext();
+
+            $id = 'Cbax_SupplierModified_' . $context->getShop()->getId() . '_' . $textID . '_' . $context->getCurrentCustomerGroup()->getId();
+            /** @var Zend_Cache_Core $cache */
+            $cache = Shopware()->Container()->get('cache');
+
+            $cache->save($text, $id, array('Cbax_Plugin'), $this->config['cachetime']);
+        }
+    }
 	
 	/**
      * Check if a given version is greater or equal to

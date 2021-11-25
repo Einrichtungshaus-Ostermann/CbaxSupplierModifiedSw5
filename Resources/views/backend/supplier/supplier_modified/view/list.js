@@ -1,18 +1,20 @@
-//{block name="backend/supplier/view/main/list" append}
+//{namespace name=backend/plugins/supplier_modified/view/list}
+//{block name="backend/supplier/view/main/list"}
+//{$smarty.block.parent}
 Ext.define('Shopware.apps.Supplier.view.main.List-SupplierModified', {
 	override: 'Shopware.apps.Supplier.view.main.List',
 
 	snippets: {
 		columns: {
-			isPremium: '{s namespace="backend/plugins/supplier_modified/view/list" name=columnIsPremium}Top Hersteller{/s}'
+			isPremium: '{s name=columnIsPremium}Top Hersteller{/s}'
 		},
 		success: {
-			title: '{s namespace="backend/plugins/supplier_modified/view/list" name=successTitle}Erfolgreich{/s}',
-			editIsPremium: '{s namespace="backend/plugins/supplier_modified/view/list" name=successEditIsPremium}Die Änderungen wurden erfolgreich gespeichert{/s}'
+			title: '{s name=successTitle}Erfolgreich{/s}',
+			editIsPremium: '{s name=successEditIsPremium}Die Änderungen wurden erfolgreich gespeichert{/s}'
 		},
 		failure: {
-			title: '{s namespace="backend/plugins/supplier_modified/view/list" name=failureTitle}Fehler{/s}',
-			editIsPremium: '{s namespace="backend/plugins/supplier_modified/view/list" name=failureEditIsPremium}Die Änderungen wurden NICHT gespeichert{/s}'
+			title: '{s name=failureTitle}Fehler{/s}',
+			editIsPremium: '{s name=failureEditIsPremium}Die Änderungen wurden NICHT gespeichert{/s}'
 		}
 	},
 

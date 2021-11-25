@@ -1,4 +1,4 @@
-/*{namespace name=backend/plugins/supplier_modified/view/edit}*/
+//{namespace name=backend/plugins/supplier_modified/view/edit}
 //{block name="backend/supplier/view/main/edit"}
 //{$smarty.block.parent}
 Ext.define('Shopware.apps.Supplier.view.main.Edit-SupplierModified', {
@@ -9,13 +9,20 @@ Ext.define('Shopware.apps.Supplier.view.main.Edit-SupplierModified', {
 			title: '{s name=columnIsPremium}Hersteller Professional{/s}'
 		},
 		isPremium: {
-			label: '{s name=fieldLabelIsPremium}Top Hersteller{/s}'
+			label: '{s name=fieldLabelIsPremium}Top Hersteller{/s}',
+			help: '{s name=helpTextIsPremium}Wenn aktiv, dann wird der Hersteller prominent in einem Slider über den anderen Herstellern angezeigt.{/s}',
 		},
 		isHidden: {
-			label: '{s name=fieldLabelIsHidden}Hersteller ausblenden{/s}'
+			label: '{s name=fieldLabelIsHidden}Hersteller ausblenden{/s}',
+			help: '{s name=helpTextIsHidden}Wenn aktiv, dann wird der Hersteller nicht in der Hersteller Übersicht angezeigt.{/s}',
 		},
 		banner: {
-			label: '{s name=fieldLabelBanner}Banner{/s}'
+			label: '{s name=fieldLabelBanner}Banner{/s}',
+			help: '{s name=helpTextBanner}Hier haben Sie die Möglichkeit ein Banner für den Hersteller zu hinterlegen.{/s}',
+		},
+		url: {
+			label: '{s name=fieldLabelUrl}Alternative URL{/s}',
+			help: '{s name=helpTextUrle}Die hier hinterlegte Url ersetzt die normale Url bei dem jeweiligen Hersteller. So können Sie an Stelle der normalen Artikel Übersicht z.B. auch auf eine Shopseite oder Landingpage verweisen.{/s}',
 		}
 	},
 
@@ -25,10 +32,8 @@ Ext.define('Shopware.apps.Supplier.view.main.Edit-SupplierModified', {
 	 */
 	initComponent : function () {
 		var me = this;
-
-		/*{if $isShopwareVersion52}*/
+		
 		me.registerEvents();
-		/*{/if}*/
 
 		me.callParent(arguments);
 	},
@@ -73,35 +78,32 @@ Ext.define('Shopware.apps.Supplier.view.main.Edit-SupplierModified', {
 			items: [{
 				fieldLabel: me.snippets.isHidden.label,
 				xtype: 'checkbox',
-				/*{if $isShopwareVersion52}*/
 				name: 'cbaxSupplierIsHidden',
-				/*{else}*/
-				name: 'attribute[cbaxSupplierIsHidden]',
-				/*{/if}*/
 				inputValue: true,
-				uncheckedValue: false
+				uncheckedValue: false,
+				helpText: me.snippets.isHidden.help
+			}, {
+				fieldLabel: me.snippets.url.label,
+				xtype: 'textfield',
+				name: 'cbaxSupplierUrl',
+				vtype: 'url',
+				helpText: me.snippets.url.help
 			}, {
 				fieldLabel: me.snippets.isPremium.label,
 				xtype: 'checkbox',
-				/*{if $isShopwareVersion52}*/
 				name: 'cbaxSupplierIsPremium',
-				/*{else}*/
-				name: 'attribute[cbaxSupplierIsPremium]',
-				/*{/if}*/
 				inputValue: true,
-				uncheckedValue: false
+				uncheckedValue: false,
+				helpText: me.snippets.isPremium.help
 			}, {
 				fieldLabel: me.snippets.banner.label,
 				xtype: 'mediaselectionfield',
-				/*{if $isShopwareVersion52}*/
 				name: 'cbaxSupplierBanner',
-				/*{else}*/
-				name: 'attribute[cbaxSupplierBanner]',
-				/*{/if}*/
 				readOnly: false,
 				multiSelect: false,
 				validTypes: me.getAllowedExtensions(),
-				validTypeErrorFunction: me.getExtensionErrorCallback()
+				validTypeErrorFunction: me.getExtensionErrorCallback(),
+				helpText: me.snippets.banner.help
 			}]
 		});
 

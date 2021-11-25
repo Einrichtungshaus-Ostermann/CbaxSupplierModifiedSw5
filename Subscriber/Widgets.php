@@ -17,7 +17,16 @@ class Widgets implements SubscriberInterface
      */
     public function __construct($pluginName, ConfigReader $configReader)
     {
-		$this->config = $configReader->getByPluginName($pluginName, Shopware()->Shop());
+		$shop = false;
+		if (Shopware()->Container()->initialized('shop')) {
+			$shop = Shopware()->Container()->get('shop');
+		}
+	
+		if (!$shop) {
+			$shop = Shopware()->Container()->get('models')->getRepository(\Shopware\Models\Shop\Shop::class)->getActiveDefault();
+		}
+	
+		$this->config = $configReader->getByPluginName($pluginName, $shop);
     }
 
     public static function getSubscribedEvents()
@@ -41,7 +50,7 @@ class Widgets implements SubscriberInterface
 		$request = $controller->Request();
 
 		if ($request->getParam('sSupplier') !== $request->getParam('s')) {
-			$request->setParam('productBoxLayout', $this->config['product_box_layout']);
+			$request->setParam('productBoxLayout', $this->config['productBoxLayout']);
 		}
 	}
 }

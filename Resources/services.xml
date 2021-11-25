@@ -5,7 +5,7 @@
 
     <services>
 		
-		<service id="cbax_supplier_modified_sw5.supplier_modified_helper" class="CbaxSupplierModifiedSw5\Components\SupplierModifiedHelper">
+		<service id="cbax_supplier_modified_sw5.supplier_modified_helper" class="CbaxSupplierModifiedSw5\Components\SupplierModifiedHelper" public="true">
             <argument>%cbax_supplier_modified_sw5.plugin_name%</argument>
 			<argument type="service" id="shopware.plugin.cached_config_reader" />
         </service>

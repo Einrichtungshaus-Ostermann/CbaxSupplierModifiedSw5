@@ -33,6 +33,7 @@ class Attributes
         $this->crudService->update('s_articles_supplier_attributes', 'cbax_supplier_is_premium', TypeMapping::TYPE_INTEGER);
 		$this->crudService->update('s_articles_supplier_attributes', 'cbax_supplier_banner', TypeMapping::TYPE_STRING);
 		$this->crudService->update('s_articles_supplier_attributes', 'cbax_supplier_is_hidden', TypeMapping::TYPE_INTEGER);
+		$this->crudService->update('s_articles_supplier_attributes', 'cbax_supplier_url', TypeMapping::TYPE_STRING);
 
         $this->modelManager->generateAttributeModels(['s_articles_supplier_attributes']);
     }
@@ -42,6 +43,7 @@ class Attributes
         $this->crudService->delete('s_articles_supplier_attributes', 'cbax_supplier_is_premium');
 		$this->crudService->delete('s_articles_supplier_attributes', 'cbax_supplier_banner');
 		$this->crudService->delete('s_articles_supplier_attributes', 'cbax_supplier_is_hidden');
+		$this->crudService->delete('s_articles_supplier_attributes', 'cbax_supplier_url');
 
         $this->modelManager->generateAttributeModels(['s_articles_supplier_attributes']);
     }

@@ -23,7 +23,16 @@ class Frontend implements SubscriberInterface
      */
     public function __construct($pluginName, ConfigReader $configReader, SupplierModifiedHelper $helperComponent)
     {
-		$this->config = $configReader->getByPluginName($pluginName, Shopware()->Shop());
+		$shop = false;
+		if (Shopware()->Container()->initialized('shop')) {
+			$shop = Shopware()->Container()->get('shop');
+		}
+	
+		if (!$shop) {
+			$shop = Shopware()->Container()->get('models')->getRepository(\Shopware\Models\Shop\Shop::class)->getActiveDefault();
+		}
+	
+		$this->config = $configReader->getByPluginName($pluginName, $shop);
 		
 		$this->helperComponent = $helperComponent;
     }
@@ -68,32 +77,38 @@ class Frontend implements SubscriberInterface
 					'link' => $supplierStandardUrl,
 					'name' => $supplierStandardTitle
 				);
-
-				if (!$this->assertMinimumVersion('5.0.9') || $this->assertMinimumVersion('5.2.20')) {
-					$breadcrumb[] = array(
-						'link' => $sCategoryContent['sSelfCanonical'],
-						'name' => $sCategoryContent['title']
-					);
-				}
+				$breadcrumb[] = array(
+					'link' => $manufacturer->getLink(),
+					'name' => $sCategoryContent['title']
+				);
 				$view->sBreadcrumb = $breadcrumb;
 
-				$sCategoryContent['productBoxLayout'] = $this->config['product_box_layout'];
+				$sCategoryContent['productBoxLayout'] = $this->config['productBoxLayout'];
 				$view->sCategoryContent = $sCategoryContent;
 			}
 
 			$supplierId = $request->getParam('sSupplier');
-
-			$supplierModified['byChar'] = $this->helperComponent->getSupplierByChar($sCategoryStart, $supplierId);
-			$supplierModified['banner'] = $this->helperComponent->getBannerFromSupplier($supplierId);
-			$supplierModified['bannerPosition'] = $this->config['bannerPositionInSupplier'];
-			$supplierModified['topsellerShow'] = $this->config['showTopsellerInSupplier'];
-			$supplierModified['supplierInfoPosition'] = $this->config['supplier_info_position'];
-			$supplierModified['hideSidebar'] = $this->config['hideSidebar'];
-			$supplierModified['hideNavigationTitle'] = $this->config['hide_navigation_title'];
-			$supplierModified['showActiveFilter'] = $this->config['show_active_filter'];
-			$supplierModified['showArticleCount'] = $this->config['show_article_count'];
+	
+			$supplierModified['byChar'] 					= $this->helperComponent->getSupplierByChar($sCategoryStart, $supplierId);
+			$supplierModified['banner'] 					= $this->helperComponent->getBannerFromSupplier($supplierId);
+			$supplierModified['bannerPosition'] 			= $this->config['bannerPositionInSupplier'];
+			$supplierModified['topsellerShow'] 				= $this->config['showTopsellerInSupplier'];
+			$supplierModified['textPosition'] 				= $this->config['textPositionInSupplier'];
+			$supplierModified['displayMode'] 				= $this->config['displayMode'];
+			$supplierModified['displayFilter'] 				= $this->config['displayFilter'];
+			$supplierModified['duration'] 					= $this->config['duration'];
+			$supplierModified['stop'] 						= $this->config['stop'];
+			$supplierModified['hideSidebarDesktop'] 		= $this->config['hideSidebarDesktop'];
+			$supplierModified['hideSidebarSmartphone'] 		= $this->config['hideSidebarSmartphone'];
+			$supplierModified['hideNavigationTitle'] 		= $this->config['hideNavigationTitle'];
+			$supplierModified['showActiveFilter'] 			= $this->config['showActiveFilter'];
+			$supplierModified['showArticleCountSidebar'] 	= $this->config['showArticleCountInSidebar'];
 
 			$controller->View()->CbaxSupplierModified = $supplierModified;
+		}
+		
+		if ($controllerName == 'detail') {
+			$controller->View()->CbaxShowSupplierTab = $this->config['showSupplierTab'];
 		}
 	}
 	

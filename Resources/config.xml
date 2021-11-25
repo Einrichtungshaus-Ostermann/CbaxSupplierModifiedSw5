@@ -19,25 +19,25 @@
             <label lang="de">Hersteller Übersicht</label>
             <label lang="en">Manufacturer Overview</label>
 			<options>
-				<position>1</position>
+				<position>2</position>
 			</options>
         </element>
 		
 		<element type="mediaselection" scope="shop">
-            <name>supplier_banner</name>
+            <name>supplierBanner</name>
             <label lang="de">Banner</label>
             <label lang="en">Banner</label>
             <value></value>
             <description lang="de">Das Banner wird auf der Startseite angezeigt</description>
 			<description lang="en">The banner will be displayed on the start page</description>
 			<options>
-				<position>2</position>
+				<position>3</position>
 				<readOnly>false</readOnly>
 			</options>
         </element>
 		
 		<element type="select" scope="shop">
-            <name>bannerPositionInListing</name>
+            <name>bannerPositionInOverview</name>
 			<label lang="de">Banner Anzeige</label>
             <label lang="en">Banner ad</label>
 			<value>aboveContent</value>
@@ -56,7 +56,7 @@
 				</option>
 			</store>
 			<options>
-				<position>3</position>
+				<position>4</position>
 				<editable>false</editable>
 			</options>
         </element>
@@ -69,7 +69,7 @@
 			<description lang="de">Sollen die Topseller angezeigt werden?</description>
 			<description lang="en">Should the top sellers be displayed?</description>
 			<options>
-				<position>4</position>
+				<position>5</position>
 			</options>
         </element>
 		
@@ -81,7 +81,7 @@
 			<description lang="de">Die minimale Anzahl der Topseller im Slider</description>
 			<description lang="en">The minimum number of top sellers in the slider</description>
 			<options>
-				<position>5</position>
+				<position>6</position>
 			</options>
         </element>
 		
@@ -93,7 +93,7 @@
 			<description lang="de">Die maximale Anzahl der Topseller im Slider</description>
 			<description lang="en">The maximum number of top sellers in the slider</description>
 			<options>
-				<position>6</position>
+				<position>7</position>
 			</options>
         </element>
 		
@@ -105,7 +105,7 @@
 			<description lang="de">Die Headline auf der Startseite der Hersteller</description>
 			<description lang="en">The headline on the homepage of the manufacturer</description>
 			<options>
-				<position>7</position>
+				<position>8</position>
 			</options>
         </element>
 		
@@ -117,12 +117,12 @@
 			<description lang="de">Der Text auf der Startseite der Hersteller</description>
 			<description lang="en">The text on the start page of the manufacturer</description>
 			<options>
-				<position>8</position>
+				<position>9</position>
 			</options>
         </element>
 		
 		<element type="select" scope="shop">
-            <name>textPosition</name>
+            <name>textPositionInOverview</name>
 			<label lang="de">Position Text</label>
             <label lang="en">Position Text</label>
 			<value>aboveListing</value>
@@ -141,7 +141,7 @@
 				</option>
 			</store>
 			<options>
-				<position>9</position>
+				<position>10</position>
 				<editable>false</editable>
 			</options>
         </element>
@@ -171,34 +171,56 @@
 				</option>
 			</store>
 			<options>
-				<position>10</position>
+				<position>11</position>
+				<editable>false</editable>
+			</options>
+        </element>
+		
+		<element type="select" scope="shop">
+            <name>template</name>
+			<label lang="de">Template</label>
+            <label lang="en">Template</label>
+			<value>listing_4col</value>
+			<description lang="de">Hier können Sie entscheiden, wie die Hersteller gelistet werden sollen.</description>
+			<description lang="en">Here you can decide how the manufacturers should be listed.</description>
+            <store>
+				<option>
+					<value>listing_2col</value>
+					<label lang="de">Zweispaltig (ohne Sidebar Dreispaltig)</label>
+					<label lang="en">Two columns (Without sidebar Three columns)</label>
+				</option>
+				<option>
+					<value>listing_3col</value>
+					<label lang="de">Dreispaltig (ohne Sidebar Vierspaltig)</label>
+					<label lang="en">Three column (Without sidebar Four columns)</label>
+				</option>
+				<option>
+					<value>listing_4col</value>
+					<label lang="de">Vierspaltig (ohne Sidebar Fünfspaltig)</label>
+					<label lang="en">Four column (Without sidebar Five columns)</label>
+				</option>
+				<option>
+					<value>slider</value>
+					<label lang="de">Slider</label>
+					<label lang="en">Slider</label>
+				</option>
+			</store>
+			<options>
+				<position>12</position>
 				<editable>false</editable>
 			</options>
         </element>
 		
 		<element required="true" type="number" scope="shop">
-            <name>brandLabelWidth</name>
-            <label lang="de">Herstellerbox Breite</label>
-            <label lang="en">Manufacturer box width</label>
-            <value>125</value>
-			<description lang="de">Breite der einzelnen Hersteller in der Übersicht.</description>
-			<description lang="en">Width of the individual manufacturers in the overview.</description>
-			<options>
-				<position>11</position>
-				<minValue>0</minValue>
-			</options>
-        </element>
-		
-		<element required="true" type="number" scope="shop">
-            <name>brandLabelHeight</name>
+            <name>supplierBoxHeight</name>
             <label lang="de">Herstellerbox Höhe</label>
             <label lang="en">Manufacturer box height</label>
-            <value>90</value>
+            <value>180</value>
 			<description lang="de">Höhe der einzelnen Hersteller in der Übersicht.</description>
 			<description lang="en">Height of individual manufacturers in the overview.</description>
 			<options>
-				<position>12</position>
-				<minValue>0</minValue>
+				<position>13</position>
+				<minValue>50</minValue>
 			</options>
         </element>
 		
@@ -222,7 +244,62 @@
 				</option>
 			</store>
 			<options>
-				<position>13</position>
+				<position>14</position>
+				<editable>false</editable>
+			</options>
+        </element>
+		
+		<element type="select" scope="shop">
+            <name>showArticleCountInOverview</name>
+			<label lang="de">Artikelanzahl anzeigen</label>
+            <label lang="en">Show article count</label>
+			<value>showListing</value>
+			<description lang="de">Hier können Sie festlegen, ob und wo die Artikelanzahl angezeigt wird.</description>
+			<description lang="en">Here you can specify if and where the article number is displayed.</description>
+            <store>
+				<option>
+					<value>showAll</value>
+					<label lang="de">Listing und Top Hersteller Slider</label>
+					<label lang="en">Listing and Top Manufacturer Slider</label>
+				</option>
+				<option>
+					<value>showListing</value>
+					<label lang="de">Nur Listing</label>
+					<label lang="en">Only listing</label>
+				</option>
+				<option>
+					<value>showNo</value>
+					<label lang="de">Nein</label>
+					<label lang="en">No</label>
+				</option>
+			</store>
+			<options>
+				<position>15</position>
+				<editable>false</editable>
+			</options>
+        </element>
+		
+		<element type="select" scope="shop">
+            <name>navigation</name>
+			<label lang="de">Navigation</label>
+            <label lang="en">Navigation</label>
+			<value>scroll</value>
+			<description lang="de">Hier können Sie entscheiden, ob bei Klick auf einen Buchstaben zu den Buchstaben gescrollt werden soll oder alle anderen ausgeblendet werden sollen.</description>
+			<description lang="en">Here you can decide if you want to scroll to the letters when clicking on a letter or to hide all others.</description>
+            <store>
+				<option>
+					<value>scroll</value>
+					<label lang="de">Bei Klick zu den Buchstaben scrollen</label>
+					<label lang="en">Scroll to the letters by clicking</label>
+				</option>
+				<option>
+					<value>click</value>
+					<label lang="de">Bei Klick alle anderen Buchstaben ausblenden</label>
+					<label lang="en">Click to hide all other letters</label>
+				</option>
+			</store>
+			<options>
+				<position>16</position>
 				<editable>false</editable>
 			</options>
         </element>
@@ -235,8 +312,8 @@
 			<description lang="de">Mit welcher Geschwindigkeit soll in der Übersicht nach unten gescrollt werden. Dauer in ms</description>
 			<description lang="en">At what speed should you scroll down in the overview. Duration in ms</description>
 			<options>
-				<position>14</position>
-				<minValue>0</minValue>
+				<position>17</position>
+				<minValue>300</minValue>
 			</options>
         </element>
 		
@@ -248,7 +325,7 @@
 			<description lang="de">Hier legen Sie fest, wie groß der Abstand zwischen oberer Browserleiste und Herstellergruppe nach dem scrollen sein soll. Angabe in px</description>
 			<description lang="en">Here you determine how large the distance between the upper browser bar and the manufacturer group should be after scrolling. Specification in px</description>
 			<options>
-				<position>15</position>
+				<position>18</position>
 			</options>
         </element>
 		
@@ -257,7 +334,7 @@
             <label lang="de">Hersteller Seiten</label>
             <label lang="en">Manufacturer Pages</label>
 			<options>
-				<position>21</position>
+				<position>30</position>
 			</options>
         </element>
 		
@@ -281,7 +358,7 @@
 				</option>
 			</store>
 			<options>
-				<position>22</position>
+				<position>31</position>
 				<editable>false</editable>
 			</options>
         </element>
@@ -294,7 +371,7 @@
 			<description lang="de">Sollen die Topseller angezeigt werden?</description>
 			<description lang="en">Should the top sellers be displayed?</description>
 			<options>
-				<position>23</position>
+				<position>32</position>
 			</options>
         </element>
 		
@@ -306,7 +383,7 @@
 			<description lang="de">Die minimale Anzahl der Topseller im Slider</description>
 			<description lang="en">The minimum number of top sellers in the slider</description>
 			<options>
-				<position>24</position>
+				<position>33</position>
 			</options>
         </element>
 		
@@ -318,12 +395,12 @@
 			<description lang="de">Die maximale Anzahl der Topseller im Slider</description>
 			<description lang="en">The maximum number of top sellers in the slider</description>
 			<options>
-				<position>25</position>
+				<position>34</position>
 			</options>
         </element>
 		
 		<element type="select" scope="shop">
-            <name>supplier_info_position</name>
+            <name>textPositionInSupplier</name>
 			<label lang="de">Position Herstellertext</label>
             <label lang="en">Position manufacturer text</label>
 			<value>aboveListing</value>
@@ -342,13 +419,13 @@
 				</option>
 			</store>
 			<options>
-				<position>26</position>
+				<position>35</position>
 				<editable>false</editable>
 			</options>
         </element>
 		
 		<element type="select" scope="shop">
-            <name>product_box_layout</name>
+            <name>productBoxLayout</name>
 			<label lang="de">Produkt Layout</label>
             <label lang="en">Product layout</label>
 			<value>basic</value>
@@ -372,7 +449,7 @@
 				</option>
 			</store>
 			<options>
-				<position>27</position>
+				<position>36</position>
 				<editable>false</editable>
 			</options>
         </element>
@@ -382,59 +459,117 @@
             <label lang="de">Linke Sidebar</label>
             <label lang="en">Left sidebar</label>
 			<options>
-				<position>31</position>
+				<position>40</position>
 			</options>
         </element>
 		
 		<element type="boolean" scope="shop">
-            <name>hideSidebar</name>
-            <label lang="de">Sidebar ausblenden</label>
-            <label lang="en">Hide sidebar</label>
+            <name>hideSidebarDesktop</name>
+            <label lang="de">Sidebar Desktop ausblenden</label>
+            <label lang="en">Hide sidebar desktop</label>
             <value>false</value>
 			<options>
-				<position>32</position>
+				<position>41</position>
 			</options>
         </element>
 		
 		<element type="boolean" scope="shop">
-            <name>hide_navigation_title</name>
+            <name>hideSidebarSmartphone</name>
+            <label lang="de">Sidebar Smartphone ausblenden</label>
+            <label lang="en">Hide sidebar smartphone</label>
+            <value>false</value>
+			<options>
+				<position>42</position>
+			</options>
+        </element>
+		
+		<element type="boolean" scope="shop">
+            <name>hideNavigationTitle</name>
             <label lang="de">Headline ausblenden</label>
             <label lang="en">Hide headline</label>
             <value>false</value>
 			<options>
-				<position>33</position>
+				<position>43</position>
 			</options>
         </element>
 		
 		<element type="boolean" scope="shop">
-            <name>categories_hide</name>
+            <name>hideCategories</name>
             <label lang="de">Kategorien ausblenden</label>
             <label lang="en">Hide categories</label>
             <value>false</value>
 			<options>
-				<position>34</position>
+				<position>44</position>
 			</options>
         </element>
 		
 		<element type="boolean" scope="shop">
-            <name>show_active_filter</name>
+            <name>showActiveFilter</name>
             <label lang="de">Aktive Buchstabengruppe offen</label>
             <label lang="en">Active letter group open</label>
             <value>true</value>
 			<options>
-				<position>35</position>
+				<position>45</position>
 			</options>
         </element>
 		
 		<element type="boolean" scope="shop">
-            <name>show_article_count</name>
+            <name>showArticleCountInSidebar</name>
             <label lang="de">Artikelanzahl anzeigen</label>
             <label lang="en">Show article count</label>
             <value>true</value>
 			<options>
-				<position>36</position>
+				<position>46</position>
 			</options>
         </element>
+		
+		<element type="button" scope="shop">
+            <name>button4</name>
+            <label lang="de">Artikel Detailseite</label>
+            <label lang="en">Article detail page</label>
+			<options>
+				<position>50</position>
+			</options>
+        </element>
+		
+		<element type="boolean" scope="shop">
+            <name>showSupplierTab</name>
+            <label lang="de">Hersteller Tab anzeigen</label>
+            <label lang="en">Manufacturer Tab view</label>
+            <value>true</value>
+			<options>
+				<position>51</position>
+			</options>
+        </element>
+
+		<element type="button" scope="shop">
+			<name>button5</name>
+			<label lang="de">Caching</label>
+			<label lang="en">Caching</label>
+			<options>
+				<position>52</position>
+			</options>
+		</element>
+
+		<element type="boolean">
+			<name>caching</name>
+			<label lang="de">Caching aktivieren</label>
+			<label lang="en">Caching aktiv</label>
+			<value>true</value>
+			<options>
+				<position>53</position>
+			</options>
+		</element>
+
+		<element type="number">
+			<name>cachetime</name>
+			<label lang="de">Cachezeit</label>
+			<label lang="en">Cachetime</label>
+			<value>43200</value>
+			<options>
+				<position>54</position>
+			</options>
+		</element>
 		
     </elements>
 </config>

@@ -3,23 +3,18 @@
 {block name="frontend_index_body_classes"}{strip}
 	{$smarty.block.parent}
 	{if $CbaxSupplierModified} is--suppliermodified{/if}
-	{if $CbaxSupplierModified.hideSidebar} is--cbax-sm-no-sidebar{/if}
+	{if $CbaxSupplierModified.hideSidebarDesktop} is--cbax-sm-no-sidebar{/if}
 {/strip}{/block}
-
-{* Breadcrumb *}
-{block name='frontend_index_start'}
-	{$smarty.block.parent}
-	{if $CbaxSupplierModified.byChar|@count && !$manufacturer}
-		{$sBreadcrumb[] = ['name'=>"Marken von A-Z", 'link'=>{url controller='SupplierModified'}]}
-	{/if}
-{/block}
 
 {* Content top container *}
 {block name="frontend_index_content_top"}
+
+	{block name="frontend_index_index_plugins_supplier_modified_banner"}
+        {if $CbaxSupplierModified.bannerPosition == 'aboveContent'}
+            {include file="frontend/plugins/supplier_modified/banner.tpl"}
+        {/if}
+    {/block}
+    
 	{$smarty.block.parent}
-	{if $CbaxSupplierModified.banner && $CbaxSupplierModified.bannerPosition == 'aboveContent'}
-		<div class="banner--main-container">
-			<img class="banner--img emotion--banner" alt="{$sCategoryContent.title}" src="{$CbaxSupplierModified.banner}">
-		</div>
-	{/if}
+    
 {/block}

@@ -1,70 +1,81 @@
 {extends file="parent:frontend/listing/index.tpl"}
 
-{* Off-Canvas *}
-{block name="frontend_listing_index_text"}
-	{if $CbaxSupplierModified}
-		<div class="supplier--info panel">
-			<a href="#" class="btn is--small is--full is--center" data-offcanvasselector=".action--supplier-options" data-offcanvas="true" data-closeButtonSelector=".supplier--close-btn">
-				<i class="icon--numbered-list"></i> {s namespace='frontend/plugins/supplier_modified/index' name='SupplierMetaTitleStandard'}Marken von A-Z{/s}
-			</a>
-		</div>
+{* Main content *}
+{block name='frontend_index_content'}
+    	
+        {if $CbaxSupplierModified}
+       
+        	<div class="content listing--content">
+                
+                {* Banner *}
+                {block name="frontend_listing_index_plugins_supplier_modified_banner"}
+                    {if $CbaxSupplierModified.bannerPosition == 'insideContent'}
+                        {include file="frontend/plugins/supplier_modified/banner.tpl"}
+                    {/if}
+                {/block}
+                
+                {* Sidebar *}
+                {block name="frontend_listing_index_plugins_supplier_modified_sidebar"}
+                    {if $CbaxSupplierModified}
+                        {if !$CbaxSupplierModified.hideSidebarSmartphone}
+                            {include file="frontend/plugins/supplier_modified/sidebar.tpl"}
+                        {/if}
+                    {/if}
+                {/block}
+                
+                {* Topseller *}
+                {block name="frontend_listing_index_plugins_supplier_modified_topseller"}
+                    {if $manufacturer && $CbaxSupplierModified.topsellerShow}
+                        {action module=widgets controller=SupplierModified action=supplierTopSeller sSupplierID=$ajaxCountUrlParams.sSupplier sSupplierName=$sCategoryContent.canonicalTitle sCategoryID=$ajaxCountUrlParams.sCategory}
+                    {/if}
+                {/block}
+                
+                {* Text above Listing*}
+                {block name="frontend_listing_index_plugins_supplier_modified_text_above_listing"}
+                    {if $CbaxSupplierModified.textPosition == 'aboveListing'}
+                        {include file='frontend/listing/text.tpl'}
+                    {/if}
+                {/block}
+                
+                {* Define all necessary template variables for the listing *}
+                {block name="frontend_listing_index_plugins_supplier_modified_layout_variables"}
+        
+                    {$emotionViewports = [0 => 'xl', 1 => 'l', 2 => 'm', 3 => 's', 4 => 'xs']}
+        
+                    {* Count of available product pages *}
+                    {$pages = 1}
+        
+                    {if $criteria}
+                        {$pages = ceil($sNumberArticles / $criteria->getLimit())}
+                    {/if}
+        
+                    {* Layout for the product boxes *}
+                    {$productBoxLayout = 'basic'}
+        
+                    {if $sCategoryContent.productBoxLayout !== null && $sCategoryContent.productBoxLayout !== 'extend'}
+                        {$productBoxLayout = $sCategoryContent.productBoxLayout}
+                    {/if}
+                {/block}
+                
+                {* Listing *}
+                {block name="frontend_listing_index_plugins_supplier_modified_listing"}
+                    {include file='frontend/listing/listing.tpl'}
+                {/block}
+                
+                {* Text below Listing*}
+                {block name="frontend_listing_index_plugins_supplier_modified_text_below_listing"}
+                    {if $CbaxSupplierModified.textPosition == 'belowListing'}
+                        {include file='frontend/listing/text.tpl'}
+                    {/if}
+                {/block}
+                
+             </div>
+             
+        {else}
+        
+        	{$smarty.block.parent}
 
-		<div class="action--supplier-options buttons--off-canvas">
-			<a href="#" class="supplier--close-btn">
-				{s namespace='frontend/plugins/supplier_modified/index' name="ListingActionsCloseSupplier"}Menü schließen{/s} <i class="icon--arrow-right"></i>
-			</a>
-
-			<div class="sidebar--supplier-navigation">
-				{if !$CbaxSupplierModified.hideNavigationTitle}<div class="supplier-sites--headline navigation--headline">{s namespace="frontend/plugins/supplier_modified/index" name='SupplierMetaTitleStandard'}Marken von A-Z{/s}</div>{/if}
-
-				<div class="filter--container" style="padding:0 10px;">
-
-					{foreach $CbaxSupplierModified.byChar as $supplier}
-						{if $supplier.countSupplier && ($supplier.countArticle || $CbaxSupplierModified.displayFilter == 'showAll')}
-							{include file="frontend/plugins/supplier_modified/facet-value-list.tpl"}
-						{/if}
-					{/foreach}
-
-					<div class="button--container" style="clear:both;">
-						<a class="btn is--primary is--full is--center" title="{s namespace='frontend/plugins/supplier_modified/index' name='FilterLinkDefault'}Alle Anzeigen{/s}" href="{url controller='SupplierModified'}">
-							{s namespace='frontend/plugins/supplier_modified/index' name='FilterLinkDefault'}Alle Anzeigen{/s}
-						</a>
-					</div>
-
-				</div>
-			</div>
-		</div>
-	{/if}
-
-	{if $manufacturer && $CbaxSupplierModified.topsellerShow}
-		{action module=widgets controller=SupplierModified action=supplierTopSeller sSupplierID=$ajaxCountUrlParams.sSupplier sSupplierName=$sCategoryContent.canonicalTitle sCategoryID=$ajaxCountUrlParams.sCategory}
-	{/if}
-	{$smarty.block.parent}
-{/block}
-
-{* Banner *}
-{block name="frontend_listing_index_banner"}
-	{if $CbaxSupplierModified.banner && $CbaxSupplierModified.bannerPosition == 'insideContent'}
-		<div class="banner--container">
-			<img class="banner--img emotion--banner" alt="{$sCategoryContent.title}" src="{$CbaxSupplierModified.banner}">
-		</div>
-	{/if}
-	{$smarty.block.parent}
-{/block}
-
-{* Herstellerinformation über dem Listing *}
-{block name="frontend_listing_index_text"}
-	{if !$CbaxSupplierModified || $CbaxSupplierModified.supplierInfoPosition == 'aboveListing'}
-		{$smarty.block.parent}
-	{/if}
-{/block}
-
-{* Herstellerinformation unter dem Listing *}
-{block name="frontend_listing_index_listing"}
-	{$smarty.block.parent}
-	{if $CbaxSupplierModified.supplierInfoPosition == 'belowListing'}
-		{if !$hasEmotion}
-			{include file='frontend/listing/text.tpl'}
 		{/if}
-	{/if}
+        
+	
 {/block}

@@ -9,12 +9,18 @@ class Shopware_Controllers_Widgets_SupplierModified extends Enlight_Controller_A
 
 	public function init()
 	{
-		$this->config = Shopware()->Container()->get('shopware.plugin.cached_config_reader')->getByPluginName('CbaxSupplierModifiedSw5', Shopware()->Shop());
+		$shop = false;
+		if (Shopware()->Container()->initialized('shop')) {
+			$shop = Shopware()->Container()->get('shop');
+		}
+	
+		if (!$shop) {
+			$shop = Shopware()->Container()->get('models')->getRepository(\Shopware\Models\Shop\Shop::class)->getActiveDefault();
+		}
+	
+		$this->config = Shopware()->Container()->get('shopware.plugin.cached_config_reader')->getByPluginName('CbaxSupplierModifiedSw5', $shop);
 	}
-
-	/**
-	 * @throws Zend_Db_Adapter_Exception
-	 */
+	
 	public function supplierTopSellerAction()
 	{
 		if (!$this->config['active'])
@@ -24,17 +30,23 @@ class Shopware_Controllers_Widgets_SupplierModified extends Enlight_Controller_A
 
 		$supplierId = $this->Request()->getParam('sSupplierID');
 		$categoryId = $this->Request()->getParam('sCategoryID');
-
-		$min = (!empty($supplierId)) ? $this->config['minTopsellerInSupplier'] : $this->config['minTopsellerInOverview'];
-		$max = (!empty($supplierId)) ? $this->config['maxTopsellerInSupplier'] : $this->config['maxTopsellerInOverview'];
+		
+		if ($supplierId)
+		{
+			$min = $this->config['minTopsellerInSupplier'];
+			$max = $this->config['maxTopsellerInSupplier'];
+		}
+		else
+		{
+			$min = $this->config['minTopsellerInOverview'];
+			$max = $this->config['maxTopsellerInOverview'];
+		}
 		
 		$values = $this->getSupplierTopSeller($supplierId, $categoryId, 0, $max, $min);
 
 		$this->View()->loadTemplate("widgets/supplier_modified/top_seller.tpl");
 
-		$this->View()->swVersionMin52 = $this->assertMinimumVersion('5.2.0');
 		$this->View()->sCharts = $values["values"];
-		$this->View()->perPage = $perPage;
 		$this->View()->supplierName = $this->getSupplier($supplierId);
 		$this->View()->topseller_show = $this->config['topseller_show'];
 	}
@@ -52,7 +64,6 @@ class Shopware_Controllers_Widgets_SupplierModified extends Enlight_Controller_A
 
 		$this->View()->loadTemplate("widgets/supplier_modified/supplier_premium.tpl");
 
-		$this->View()->swVersionMin52 = $this->assertMinimumVersion('5.2.0');
 		$this->View()->sPremium = $values;
 		$this->View()->topseller_show = $this->config['topseller_show'];
 	}
@@ -225,7 +236,7 @@ class Shopware_Controllers_Widgets_SupplierModified extends Enlight_Controller_A
 				'action' => 'manufacturer',
 				'sSupplier' => $supplierValue["id"]
 			);
-			$suppliers[$supplierKey]["link"] = Shopware()->Router()->assemble($query);
+			$suppliers[$supplierKey]["link"] = Shopware()->Front()->Router()->assemble($query);
 
 			if ($this->assertMinimumVersion('5.0.9')) {
 				if ($supplierValue["img"]) {
@@ -281,11 +292,13 @@ class Shopware_Controllers_Widgets_SupplierModified extends Enlight_Controller_A
 	 */
 	protected function assertMinimumVersion($requiredVersion)
 	{
-		if (Shopware::VERSION === '___VERSION___') {
-			return true;
-		}
+		$version = Shopware()->Config()->version;
 
-		return version_compare(Shopware::VERSION, $requiredVersion, '>=');
+        if ($version === '___VERSION___') {
+            return true;
+        }
+
+        return version_compare($version, $requiredVersion, '>=');
 	}
 }
 

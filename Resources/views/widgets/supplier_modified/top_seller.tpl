@@ -1,33 +1,18 @@
-{if $sCharts|@count}
-    {if $swVersionMin52}
+{namespace name="widgets/supplier_modified/top_seller"}
+
+{block name="widgets_plugins_supplier_modified_top_seller"}
+    {if $sCharts|@count}
         <div class="topseller panel has--border is--rounded">
-            <div class="topseller--title panel--title is--underline">
-				{if $supplierName}
-					{s namespace="frontend/plugins/supplier_modified/index" name="TopsellerHeading"}Topseller von{/s} {$supplierName}
-                {else}
-					{s namespace="frontend/plugins/supplier_modified/index" name="TopsellerHeadingOverview"}Topseller{/s}
-				{/if}
-            </div>
+        	{block name="widgets_plugins_supplier_modified_top_seller_headline"}
+                <div class="topseller--title panel--title is--underline">
+                    {if $supplierName}
+                        {s name="TopsellerHeading"}Topseller von{/s} {$supplierName}
+                    {else}
+                        {s name="TopsellerHeadingOverview"}Topseller{/s}
+                    {/if}
+                </div>
+            {/block}
             {include file="frontend/_includes/product_slider.tpl" articles=$sCharts}
         </div>
-    {else}
-        <div class="topseller panel has--border is--rounded">
-            <div class="topseller--title panel--title is--underline">
-				{if $supplierName}
-					{s namespace="frontend/plugins/supplier_modified/index" name="TopsellerHeading"}Topseller von{/s} {$supplierName}
-				{else}
-					{s namespace="frontend/plugins/supplier_modified/index" name="TopsellerHeadingOverview"}Topseller{/s}
-				{/if}
-            </div>
-            <div class="topseller--content panel--body product-slider" data-topseller-slider="true">
-                <div class="product-slider--container">
-                    {foreach from=$sCharts item=article}
-                        <div class="product-slider--item">
-                            {include file="frontend/listing/box_article.tpl" sArticle=$article productBoxLayout="slider" productSliderCls="topseller--content panel--body"}
-                        </div>
-                    {/foreach}
-                </div>
-            </div>
-        </div>
     {/if}
-{/if}
+{/block}

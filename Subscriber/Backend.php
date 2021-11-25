@@ -37,28 +37,14 @@ class Backend implements SubscriberInterface
         // if the controller action name equals "load" we have to load all application components.
         if ($request->getActionName() === 'load') {
 			
-			// Shopware Version
-			$view->isShopwareVersion52 = $this->assertMinimumVersion('5.2.0');
-
-			if ($this->assertMinimumVersion('5.1.4')) {
-				$view->extendsTemplate('backend/supplier/supplier_modified/view/list.js');
-			}
-
-			if (!$this->assertMinimumVersion('5.2.0')) {
-				$view->extendsTemplate('backend/supplier/supplier_modified/model/attribute.js');
-			}
-
-			if ($this->assertMinimumVersion('5.2.0')) {
-				$view->extendsTemplate('backend/supplier/supplier_modified/controller/main.js');
-			}
-
-			if (!$this->assertMinimumVersion('5.2.0') ||
-				$this->assertMinimumVersion('5.2.19')) {
-				$view->extendsTemplate('backend/supplier/supplier_modified/view/create.js');
-			}
+			$view->extendsTemplate('backend/supplier/supplier_modified/view/create.js');
+			$view->extendsTemplate('backend/supplier/supplier_modified/view/edit.js');
+			$view->extendsTemplate('backend/supplier/supplier_modified/view/list.js');
 
 			$view->extendsTemplate('backend/supplier/supplier_modified/model/supplier.js');
-			$view->extendsTemplate('backend/supplier/supplier_modified/view/edit.js');
+			
+			$view->extendsTemplate('backend/supplier/supplier_modified/controller/main.js');
+			
         }
     }
 	
@@ -71,21 +57,4 @@ class Backend implements SubscriberInterface
 
 		$args->setReturn($builder);
 	}
-	
-	/**
-     * Check if a given version is greater or equal to
-     * the currently installed shopware version.
-     *
-     * @return bool
-     */
-	protected function assertMinimumVersion($requiredVersion)
-    {
-        $version = Shopware()->Config()->version;
-
-        if ($version === '___VERSION___') {
-            return true;
-        }
-
-        return version_compare($version, $requiredVersion, '>=');
-    }
 }

@@ -47,7 +47,10 @@ class CbaxSupplierModifiedSw5 extends Plugin
      */
     public function update(UpdateContext $context)
     {
-        $updater = new Updater();
+		$attributes = new Attributes($this->container->get('shopware_attribute.crud_service'), $this->container->get('models'));
+        $attributes->createAttributes();
+		
+        $updater = new Updater($this->getPath());
 
         $updater->update($context->getCurrentVersion());
 
