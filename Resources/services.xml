@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+		
+		<service id="cbax_supplier_modified_sw5.supplier_modified_helper" class="CbaxSupplierModifiedSw5\Components\SupplierModifiedHelper">
+            <argument>%cbax_supplier_modified_sw5.plugin_name%</argument>
+			<argument type="service" id="shopware.plugin.cached_config_reader" />
+        </service>
+		
+        <service id="cbax_supplier_modified_sw5.subscriber.frontend" class="CbaxSupplierModifiedSw5\Subscriber\Frontend">
+			<argument>%cbax_supplier_modified_sw5.plugin_name%</argument>
+			<argument type="service" id="shopware.plugin.cached_config_reader" />
+			<argument type="service" id="cbax_supplier_modified_sw5.supplier_modified_helper" />
+            <tag name="shopware.event_subscriber" />
+        </service>
+		
+		<service id="cbax_supplier_modified_sw5.subscriber.backend" class="CbaxSupplierModifiedSw5\Subscriber\Backend">
+			<argument>%cbax_supplier_modified_sw5.plugin_dir%</argument>
+            <tag name="shopware.event_subscriber" />
+        </service>
+		
+		<service id="cbax_supplier_modified_sw5.subscriber.widgets" class="CbaxSupplierModifiedSw5\Subscriber\Widgets">
+			<argument>%cbax_supplier_modified_sw5.plugin_name%</argument>
+			<argument type="service" id="shopware.plugin.cached_config_reader" />
+            <tag name="shopware.event_subscriber" />
+        </service>
+
+        <service id="cbax_supplier_modified_sw5.subscriber.theme" class="CbaxSupplierModifiedSw5\Subscriber\Theme">
+			<argument>%cbax_supplier_modified_sw5.plugin_dir%</argument>
+			<argument>%cbax_supplier_modified_sw5.plugin_name%</argument>
+			<argument type="service" id="shopware.plugin.cached_config_reader" />
+            <tag name="shopware.event_subscriber" />
+        </service>
+		
+    </services>
+</container>

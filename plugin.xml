@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plugin xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../../../engine/Shopware/Components/Plugin/schema/plugin.xsd">
+    <label lang="de">Hersteller Professionell</label>
+    <label lang="en">Professional Manufacturer</label>
+    <version>2.5.6</version>
+    <copyright>Copyright © 2015, Coolbax</copyright>
+    <license>Spezial-Lizenz</license>
+    <link>http://www.coolbax.de</link>
+    <author>Coolbax</author>
+	<description lang="de"><![CDATA[<h1>Hersteller Professionell</h1><br /><p>Professionell gestaltete Herstellerseite mit Filterung nach Alphabet, Logo Anzeige und Topseller Slider des jeweiligen Herstellers.</p>]]></description>
+	<description lang="en"><![CDATA[<h1>Professional Manufacturer</h1><br /><p>Professionally designed manufacturer page with filtering by alphabet, logo display and top seller of the respective manufacturer.</p>]]></description>
+	
+    <compatibility minVersion="5.2.17" />
+	
+	<changelog version="2.5.6">
+        <changes lang="de">H1 Tag als Headline gesetzt</changes>
+        <changes lang="en">H1 Tag als Headline gesetzt</changes>
+    </changelog>
+	<changelog version="2.5.5">
+        <changes lang="de">Migration auf das Shopware 5.2 Plugin System</changes>
+        <changes lang="en">Migration to the Shopware 5.2 plugin system</changes>
+    </changelog>
+		<changelog version="2.5.4">
+        <changes lang="de">Darstellung der Filter korrigiert. Sortierung angepasst</changes>
+        <changes lang="en">Correction of the filters corrected. Sorting adjusted</changes>
+    </changelog>
+		<changelog version="2.5.3">
+        <changes lang="de">Es werden jetzt auch Abverkaufsartikel berücksichtigt</changes>
+        <changes lang="en">There are now also sales items considered</changes>
+    </changelog>
+		<changelog version="2.5.2">
+        <changes lang="de">Fehler behoben, bei dem der Kategorietext im Listing nicht mehr angezeigt wird. Fehler behoben, dass das mobile Herstellermenü auf jeder Seite angezeigt wird.</changes>
+        <changes lang="en">Fixed an issue where the category text would no longer be displayed in the listing. Fixed bug that the mobile maker menu would appear on every page.</changes>
+    </changelog>
+		<changelog version="2.5.1">
+        <changes lang="de">Einzelne Hersteller können jetzt ausgeblendet werden. Verschiedene Anzeige der Hersteller (mit/ohne Logo oder Text). Position des Hersteller Text frei einstellbar. Erweiterte Plugin Einstellungen (bitte einmal öffnen, überprüfen und speichern). Neue Template Basis (bei eigenen Anpassungen bitte überprüfen)</changes>
+        <changes lang="en">Individual manufacturers can now be hidden. Different display of the manufacturers (with / without logo or text). Position of the manufacturer Text freely adjustable. Advanced plugin settings (please open, check and save once). New template base (please check if you make your own adjustments)</changes>
+    </changelog>
+		<changelog version="2.5.0">
+        <changes lang="de">Fehler behoben, bei der Zuweisung eines anderen Produkt Layout</changes>
+        <changes lang="en">Fixed bug when assigning another product layout</changes>
+    </changelog>
+		<changelog version="2.4.9">
+        <changes lang="de">Kleine CSS Anpassungen</changes>
+        <changes lang="en">Small CSS adjustments</changes>
+    </changelog>
+		<changelog version="2.4.8">
+        <changes lang="de">Kompatibilität des Plugin mit Infinite Scrolling hergestellt.</changes>
+        <changes lang="en">Compatibility of the plugin made with Infinite Scrolling.</changes>
+    </changelog>
+		<changelog version="2.4.5">
+        <changes lang="de">Gewählte Filter in der Sidebar bleiben jetzt aufgeklappt</changes>
+        <changes lang="en">Selected filters in the sidebar now remain unfolded</changes>
+    </changelog>
+		<changelog version="2.4.4">
+        <changes lang="de">Breadcrumb korrigiert</changes>
+        <changes lang="en">Breadcrumb corrected</changes>
+    </changelog>
+		<changelog version="2.4.3">
+        <changes lang="de">Fehler bei der Banneranzeige korrigiert</changes>
+        <changes lang="en">Bugs display error corrected</changes>
+    </changelog>
+		<changelog version="2.4.2">
+        <changes lang="de">Viele neue Funktionen. Markierung einzelner Hersteller als Top Hersteller und prominente Anzeige dieser Hersteller. Individuelle Banner pro Hersteller in zwei Positionen. Banner können global über dem Content (wie im Demoshop) oder wie ein normales Banner angezeigt werden. Individuelle Hersteller Beschreibung – Anzeige über oder unter den Artikeln</changes>
+        <changes lang="en">Many new features. Marking individual manufacturers as top manufacturers and prominent display of these manufacturers. Individual banners per manufacturer in two positions. Banners can be displayed globally over the content (as in the demo shop) or as a normal banner. Individual Manufacturer Description - Display above or below the articles</changes>
+    </changelog>
+		<changelog version="2.4.1">
+        <changes lang="de">Kleine Verbesserungen</changes>
+        <changes lang="en">Small improvements</changes>
+    </changelog>
+		<changelog version="2.4.0">
+        <changes lang="de">Anpassung an Shopware 5.2</changes>
+        <changes lang="en">Adaptation to Shopware 5.2</changes>
+    </changelog>
+		<changelog version="2.3.9">
+        <changes lang="de">Bannerlink bei SSL korrigiert. Es können jetzt verschiedene Produkt Layouts für die Artikeldarstellung gewählt werden.</changes>
+        <changes lang="en">Corrected the banner link on SSL. Different product layouts can now be selected for the article display.</changes>
+    </changelog>
+		<changelog version="2.3.8">
+        <changes lang="de">Anpassung bei Ausblendung der Sidebar</changes>
+        <changes lang="en">Adjustment when the sidebar is hidden</changes>
+    </changelog>
+		<changelog version="2.3.7">
+        <changes lang="de">Neue Kofigurationsfelder hinzugefügt und neu angeordnet. Nach dem Update das Plugin einmal deinstallieren und dann installieren. Ansicht auf dem Tablett korrigiert. Banner auf der Startseite (optional)</changes>
+        <changes lang="en">New configuration fields added and rearranged. After the update uninstall the plugin once and then install. Corrected view on the tablet. Banner on the start page (optional)</changes>
+    </changelog>
+		<changelog version="2.3.6">
+        <changes lang="de">Kleine CSS Anpassung</changes>
+        <changes lang="en">Small CSS customization</changes>
+    </changelog>
+		<changelog version="2.3.5">
+        <changes lang="de">Kleine Verbesserungen</changes>
+        <changes lang="en">Small improvements</changes>
+    </changelog>
+		<changelog version="2.3.4">
+        <changes lang="de">Ab jetzt ist es leichter die Templates anzupassen</changes>
+        <changes lang="en">From now on it is easier to customize the templates</changes>
+    </changelog>
+		<changelog version="2.3.3">
+        <changes lang="de">Anpassung an Shopware 5.1</changes>
+        <changes lang="en">Adaptation to Shopware 5.1</changes>
+    </changelog>
+		<changelog version="2.3.2">
+        <changes lang="de">Einbindung Template geändert. Dadurch Anpassung im Template erleichtert.</changes>
+        <changes lang="en">Integration template changed. This facilitates customization in the template.</changes>
+    </changelog>
+		<changelog version="2.3.1">
+        <changes lang="de">Kleine Template Anpassungen</changes>
+        <changes lang="en">Small template adjustments</changes>
+    </changelog>
+		<changelog version="2.3.0">
+        <changes lang="de">Filter auf dem Smartphone angepasst</changes>
+        <changes lang="en">Adapted filter on the smartphone</changes>
+    </changelog>
+		<changelog version="2.2.9">
+        <changes lang="de">Neue Kofigurationsfelder hinzugefügt und neu angeordnet. Nach dem Update das Plugin einmal deinstallieren und dann installieren.</changes>
+        <changes lang="en">New configuration fields added and rearranged. After the update uninstall the plugin once and then install.</changes>
+    </changelog>
+		<changelog version="2.2.8">
+        <changes lang="de">Kleine anpassung im Filter</changes>
+        <changes lang="en">Small adjustment in the filter</changes>
+    </changelog>
+		<changelog version="2.2.7">
+        <changes lang="de">Kleine CSS Anpassung</changes>
+        <changes lang="en">Small CSS customization</changes>
+    </changelog>
+		<changelog version="2.2.6">
+        <changes lang="de">Im Plugin kann jetzt auch eine Überschrift und ein Text eingegeben werden, der dann auf der Übersichtsseite der Hersteller angezeigt wird. Bitte das Plugin einmal neu installieren.</changes>
+        <changes lang="en">In the plugin, a headline and a text can now be entered, which is then displayed on the manufacturer's overview page. Please reinstall the plugin once.</changes>
+    </changelog>
+		<changelog version="2.2.5">
+        <changes lang="de">Templates angepasst</changes>
+        <changes lang="en">Templates adjusted</changes>
+    </changelog>
+		<changelog version="2.2.4">
+        <changes lang="de">Kleine Verbesserungen</changes>
+        <changes lang="en">Small improvements</changes>
+    </changelog>
+		<changelog version="2.2.3">
+        <changes lang="de">Kleine Verbesserungen</changes>
+        <changes lang="en">Small improvements</changes>
+    </changelog>
+    <changelog version="2.2.0">
+        <changes lang="de">Erste Veröffentlichung.</changes>
+        <changes lang="en">Initial Release.</changes>
+    </changelog>
+</plugin>

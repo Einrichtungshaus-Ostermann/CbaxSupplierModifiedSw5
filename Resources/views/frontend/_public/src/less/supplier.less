@@ -1,0 +1,309 @@
+// @phoneLandscapeViewportWidth: 30em;      480px
+// @tabletViewportWidth: 48em;              768px
+// @tabletLandscapeViewportWidth: 64em;     1024px
+// @desktopViewportWidth: 78.75em;          1260px
+
+@cbax-supplier-modified-brand-label-img-max-height: @cbax-supplier-modified-brand-label-height - 40;
+
+.supplier-sites--filter {
+	
+	.filter-panel {
+		height: auto;
+		margin-left: 0;
+		width: 100%;
+		
+		.filter-panel--flyout {
+			position: relative;
+			z-index: 800;
+		}
+	}
+	
+	.filter--property {
+		
+		.filter-panel--checkbox {
+			.unitize(top, 5);
+			left: 0;
+			position: absolute;
+		}
+	}
+}
+
+.sidebar--supplier-navigation{
+	.filter--property {
+		
+		.filter-panel--checkbox {
+			.unitize(top, 5);
+			left: 0;
+			position: absolute;
+		}
+	}
+}
+
+.brand-premium--container {
+	.unitize(margin-top, 10);
+}
+
+.brand-premium--item {
+	.unitize-padding(10, 15);
+	height: 100%;
+	width: 100%;
+
+	.brand-premium--link {
+		.unitize-height(50);
+		.unitize(margin-bottom, 12);
+		display: block;
+		position: relative;
+		width: 100%;
+
+		.brand-premium--img {
+			bottom: 0;
+			left: 0;
+			margin: auto;
+			position: absolute;
+			right: 0;
+			top: 0;
+		}
+	}
+
+	.brand-premium--text {
+		display: block;
+		text-align: center;
+		.unitize(font-size, 14);
+	}
+}
+
+.sidebar--supplier-navigation {
+	.unitize-margin(10, 0, 20, 0);
+}
+
+.supplier--close-btn {
+	.unitize-padding(2, 10);
+    .unitize(line-height, 38);
+	.secondary-gradient();
+	.unitize(font-size, 14);
+	color: @gray-light;
+	font-weight: bold;
+	display: block;
+}
+
+.action--supplier-options .supplier--close-btn .icon--arrow-right {
+    .unitize-margin(12, 0, 0, 0);
+    .unitize(font-size, 11);
+    float: right;
+}
+
+.supplier--info {
+	.unitize-margin(0, 0, 20, 0);
+}
+
+.sidebar--categories-wrapper {
+	.supplier-sites--headline {
+		.unitize(margin-top, 0);
+	}
+}
+
+.sidebar--supplier-navigation::after {
+	content: "";
+	clear: both;
+	display: table;
+}
+
+.action--supplier-options {
+	background-color: @gray;
+}
+
+#brand_index {
+	.unitize-margin(0, 0, 30, 0);
+	background: darken(@gray-light, 1%);
+	border: 1px solid @border-color;
+	border-radius: 3px;
+	display: none;
+	text-align: center;
+	
+	.btn {
+		.unitize(line-height, 15);
+		.unitize-padding(5, 5);
+	}
+}
+
+.brand_char {
+	.unitize(margin-top, 10);
+	font-weight: bold;
+}
+
+.brand_letter {
+	.unitize(font-size, 30);
+	.unitize(height, 50);
+	.unitize(line-height, 50);
+	.unitize(width, 65);
+	float: left;
+	font-weight: bold;
+}
+
+.brand--row {
+	background: #ffffff;
+	border-bottom: 1px dashed #dadae5;
+	display: flex;
+	margin-bottom: 20px;
+
+	.brand--column {
+		.unitize-padding(5, 10);
+
+		&.column-main {
+			.unitize(padding-left, 5);
+			display: inline-block;
+			vertical-align: top;
+			width: 50px;
+		}
+
+		&.column-list {
+			display: inline-block;
+			flex: 1;
+		}
+
+		.brand--item {
+			.unitize-height(@cbax-supplier-modified-brand-label-height);
+			.unitize-margin(0, 20, 15, 0);
+			.unitize-width(@cbax-supplier-modified-brand-label-width);
+			display: inline-block;
+			position: relative;
+
+			.brand--link {
+				color: inherit;
+				display: block;
+
+				.brand--logo {
+					.unitize(max-height, @cbax-supplier-modified-brand-label-img-max-height);
+					.unitize(max-width, @cbax-supplier-modified-brand-label-width);
+					margin: 0 auto 20px;
+				}
+
+				&:hover {
+					color: @brand-primary;
+				}
+			}
+
+			.brand--label {
+				bottom: 0;
+				display: block;
+				position: absolute;
+				text-align: center;
+				width: 100%;
+			}
+
+			&.logo-only {
+
+				.brand--link {
+
+					.brand--logo {
+						.unitize(max-height, @cbax-supplier-modified-brand-label-height);
+					}
+				}
+			}
+
+			&.label-only {
+
+				.brand--link {
+
+					.brand--label {
+						position: relative;
+					}
+				}
+			}
+		}
+	}
+}
+
+@media screen and (min-width: @phoneLandscapeViewportWidth) {
+	.brand-premium--item {
+		display: inline-block;
+		width: 50%;
+	}
+}
+
+// mögliche Scrollleiste in Sidebar entfernen
+@media screen and (min-width: @tabletViewportWidth) {
+	.is--ctl-SupplierModified,
+	.is--ctl-suppliermodified,
+	.is--ctl-listing.is--act-manufacturer {
+
+		.content-main {
+
+			.content--wrapper {
+				.unitize(margin-left, 260);
+			}
+		}
+
+		.sidebar-main.off-canvas {
+			display: block;
+			overflow: inherit;
+		}
+
+		&.is--no-sidebar {
+
+			.content-main {
+
+				.content--wrapper {
+					.unitize(margin-left, 260);
+				}
+			}
+		}
+
+		&.is--cbax-sm-no-sidebar {
+
+			.content-main {
+
+				.content--wrapper {
+					margin: 0;
+				}
+			}
+
+			.sidebar-main.off-canvas,
+			.cbax-aside {
+				display: none;
+			}
+		}
+	}
+
+	.is--act-manufacturer .sidebar-main.off-canvas {
+		display: block;
+		overflow: inherit;
+	}
+
+	.is--act-manufacturer.is--no-sidebar .sidebar-main {
+		display: none;
+	}
+
+	.sidebar--supplier-navigation {
+		.unitize-margin(0, 0, 20, 0);
+	}
+
+	.is--ctl-SupplierModified,
+	.is--ctl-suppliermodified,
+	.is--ctl-listing.is--act-manufacturer {
+
+		.sidebar--categories-navigation {
+			display: @cbax-supplier-modified-display;
+		}
+	}
+
+	.supplier--info {
+		display: none;
+	}
+}
+
+@media screen and (min-width: @tabletLandscapeViewportWidth) {
+	.brand-premium--item {
+		width: 33.3333%;
+	}
+}
+
+@media only screen and (min-width: @desktopViewportWidth) {
+	#brand_index {
+		display: block;
+	}
+
+	.brand-premium--item {
+		width: 25%;
+	}
+}
